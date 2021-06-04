@@ -4,11 +4,6 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
 
 ## TODO
 
-- [ ] Add `main.go` as `myfm` package
-- [ ] Implement a basic functions
-- [ ] Add tests
-  - [ ] Add `main_test.go`
-- [ ] Add `go.mod` via `$ go mod init github.com/rnazmo/myfm`
 - [ ] Add commands to `Makefile`
   - [ ] `lint`
 - [ ] Use golangci-lint for lint
