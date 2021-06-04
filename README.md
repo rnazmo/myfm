@@ -7,7 +7,9 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
 - [ ] Add commands to `Makefile`
   - [ ] `lint`
 - [ ] Use golangci-lint for lint
-- [ ] Use GitHub Actions to run CI (lint, unit-test, integ-test)
+- [ ] Use new GitHub Actions workflows
+  - [ ] integ-test
+  - [ ] lint integ-test
 - [ ] Add `_example/*`
 - [ ] Add `testdata/a.md`, `testdata/b.md`, ...
 - [ ] Add CLI. (under `/cli/myfm/`, using cobra, commands: extract, format, lint)
