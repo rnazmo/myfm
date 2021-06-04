@@ -203,3 +203,54 @@ func TestParse(t *testing.T) {
 		})
 	}
 }
+
+func Test_unmarshal(t *testing.T) {
+	type args struct {
+		frontmatter []byte
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    tomlData
+		wantErr bool
+	}{
+		{
+			name: "todo: nameme",
+			args: args{
+				frontmatter: []byte(`front_matter_version = "0.0.4"
+title = "Foo Bar Baz Foo Bar Baz"
+drafted = "2021-01-02-03-45"
+created = "2021-06-04-15-33"
+last_updated = ""
+last_checked = ""
+tags = ["meta:tagme", "lang::en", "golang"]
+id = "AbCdEfGh"
+`),
+			},
+			want: tomlData{
+				FrontMatterVersion: "0.0.4",
+				Title:              "Foo Bar Baz Foo Bar Baz",
+				Drafted:            "2021-01-02-03-45",
+				Created:            "2021-06-04-15-33",
+				LastUpdated:        "",
+				LastChecked:        "",
+				Tags:               []string{"meta:tagme", "lang::en", "golang"},
+				ID:                 "AbCdEfGh",
+			},
+			wantErr: false,
+		},
+		// TODO: Add testcases
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := unmarshal(tt.args.frontmatter)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("unmarshal() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("unmarshal() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

@@ -3,12 +3,27 @@ package myfm
 import (
 	"bytes"
 	"fmt"
+
+	"github.com/naoina/toml"
 )
 
 const (
 	IdentifyingToken            = "+++"
 	IdentifyingTokenWithNewline = IdentifyingToken + "\n"
 )
+
+type tomlData struct {
+	FrontMatterVersion string
+	Title              string
+	Drafted            string
+	Created            string
+	LastUpdated        string
+	LastChecked        string
+	Tags               []string
+	ID                 string
+}
+
+type FrontMatter struct{}
 
 // parseIndex do following:
 //   1. Finds first two 'IdentifyingTokenWithNewline' in 'post'.
@@ -81,4 +96,22 @@ func Parse(post []byte) (frontmatter, content []byte, err error) {
 		return nil, nil, err
 	}
 	return post[f : s-4], post[s:], nil // 4 = len(IdentifyingTokenWithNewline)
+}
+
+// unmarshal converts a front matter from toml to struct.
+//
+// Ref:
+//   https://github.com/naoina/toml
+//   https://pkg.go.dev/github.com/naoina/toml?utm_source=godoc#example-package-TextUnmarshalerError
+//
+// TODO: Use https://github.com/pelletier/go-toml instead.
+//
+// TODO: Add test
+//
+func unmarshal(frontmatter []byte) (tomlData, error) {
+	var td tomlData
+	if err := toml.Unmarshal(frontmatter, &td); err != nil {
+		return tomlData{}, err
+	}
+	return td, nil
 }
