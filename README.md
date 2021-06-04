@@ -9,7 +9,6 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
 - [ ] Add tests
   - [ ] Add `main_test.go`
 - [ ] Add `go.mod` via `$ go mod init github.com/rnazmo/myfm`
-- [ ] Add `.editorconfig`
 - [ ] Add `./vscode/*` for VS Code settings
 - [ ] Add `Makefile`
 - [ ] Add commands to `Makefile`
