@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-      - name: Print the version
-        run: echo 'golangci-lint: v1.29'
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
