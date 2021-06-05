@@ -1,5 +1,8 @@
 # myfm
 
+[![Test](https://github.com/rnazmo/myfm/actions/workflows/test.yml/badge.svg)](https://github.com/rnazmo/myfm/actions/workflows/test.yml)
+[![Lint](https://github.com/rnazmo/myfm/actions/workflows/lint.yml/badge.svg)](https://github.com/rnazmo/myfm/actions/workflows/lint.yml)
+
 myfm (My FrontMatter) is a Golang package to manage front matters for my own use.
 
 ## TODO
