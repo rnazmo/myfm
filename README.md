@@ -7,8 +7,6 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
 
 ## TODO
 
-- [ ] Add golangci-lint config file `.golangci.yml`
-  - ref: https://golangci-lint.run/usage/configuration/
 - [ ] Add scripts
   - [ ] `/devel-tools/script/install-devel-tools.linux.x64.sh`
 - [ ] Add GitHub Actions workflows
