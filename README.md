@@ -4,9 +4,7 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
 
 ## TODO
 
-- [ ] Add commands to `Makefile`
-  - [ ] `lint`
-- [ ] Use golangci-lint for lint
+- [ ] Add a new script `/devel-tools/script/install-devel-tools.linux.x64.sh`
 - [ ] Use new GitHub Actions workflows
   - [ ] integ-test
   - [ ] lint integ-test
