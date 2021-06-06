@@ -34,3 +34,7 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
 - [ ] Add CLI. (under `/cli/myfm/`, using cobra, commands: extract, format, lint)
 - [ ] Write documents
 - [ ] Make `/internal/` directory and move `formatter` package to under it.
+- [ ] Make the field names of `frontmatter` non-capitalizable.
+  - It prevents the field values from being changed from outside the package. Then the field values of `frontmatter` are always guaranteed to be validated.
+  - We access the field values via methods like `frontMatterVersion() (string)`, `SetFrontMatterVersion(frontMatterVersion string) error`.
+  - But.... We cannot unmarshal the `frontmatter` struct if the field names are not capitalized.
