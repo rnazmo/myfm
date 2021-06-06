@@ -12,7 +12,9 @@ const (
 	IdentifyingTokenWithNewline = IdentifyingToken + "\n"
 )
 
-type invalidatedFrontmatter struct {
+type invalidatedFrontmatter frontmatter
+
+type frontmatter struct {
 	FrontMatterVersion string
 	Title              string
 	Drafted            string
@@ -22,8 +24,6 @@ type invalidatedFrontmatter struct {
 	Tags               []string
 	ID                 string
 }
-
-type FrontMatter struct{}
 
 // parseIndex do following:
 //   1. Finds first two 'IdentifyingTokenWithNewline' in 'post'.
