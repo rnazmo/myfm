@@ -12,7 +12,7 @@ const (
 	IdentifyingTokenWithNewline = IdentifyingToken + "\n"
 )
 
-type tomlData struct {
+type invalidatedFrontmatter struct {
 	FrontMatterVersion string
 	Title              string
 	Drafted            string
@@ -108,10 +108,10 @@ func Parse(post []byte) (frontmatter, content []byte, err error) {
 //
 // TODO: Add test
 //
-func unmarshal(frontmatter []byte) (tomlData, error) {
-	var td tomlData
+func unmarshal(frontmatter []byte) (invalidatedFrontmatter, error) {
+	var td invalidatedFrontmatter
 	if err := toml.Unmarshal(frontmatter, &td); err != nil {
-		return tomlData{}, err
+		return invalidatedFrontmatter{}, err
 	}
 	return td, nil
 }
