@@ -23,7 +23,10 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
   - [ ] `New(post []byte) (fm FrontMatter, content []byte, err error)`
   - [ ] `Validate` (including `validateFrontMatterVersion`, `validateTitle`, ...) (Check as a 'FrontMatter')
   - [ ] `Format`
-- [ ] Add struct `FrontMatter`
+- [ ] Add methods to struct `frontmatter`
+  - [ ] `func (fm frontmatter) Marshal() (???, error)`: Convert the struct to toml
+  - [ ] `func (fm frontmatter) MarshalToJson() (???, error)`: Convert the struct to json
+- [ ] (Add struct `FrontMatter`)?
 - [ ] Add GitHub Actions workflows
   - [ ] integ-test
 - [ ] Add `_example/*`
