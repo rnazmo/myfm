@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/naoina/toml"
+	"github.com/rnazmo/myfm/formatter"
 )
 
 const (
@@ -12,7 +13,11 @@ const (
 	IdentifyingTokenWithNewline = IdentifyingToken + "\n"
 )
 
-type tomlData struct {
+type invalidatedFrontmatter frontmatter
+
+// TODO: Replace  'tomlData' with 'invalidatedFrontmatter'
+
+type frontmatter struct {
 	FrontMatterVersion string
 	Title              string
 	Drafted            string
@@ -23,7 +28,96 @@ type tomlData struct {
 	ID                 string
 }
 
-type FrontMatter struct{}
+// TODO: Wrap those error messages.
+func NewFromPost(post []byte) (fm frontmatter, content []byte, err error) {
+	frontMatterBytes, content, err := Parse(post)
+	if err != nil {
+		return frontmatter{}, nil, err
+	}
+	invalidatedFrontMatter, err := unmarshal(frontMatterBytes)
+	if err != nil {
+		return frontmatter{}, nil, err
+	}
+	frontMatter, err := validate(invalidatedFrontMatter)
+	if err != nil {
+		return frontmatter{}, nil, err
+	}
+	return frontMatter, content, nil
+}
+
+// TODO: Wrap those error messages.
+func NewFromInputs(
+	frontMatterVersion string,
+	title string,
+	drafted string,
+	created string,
+	lastUpdated string,
+	lastChecked string,
+	tags []string,
+	id string,
+) (frontmatter, error) {
+	invalidatedFrontMatter := invalidatedFrontmatter{
+		FrontMatterVersion: frontMatterVersion,
+		Title:              title,
+		Drafted:            drafted,
+		Created:            created,
+		LastUpdated:        lastUpdated,
+		LastChecked:        lastChecked,
+		Tags:               tags,
+		ID:                 id,
+	}
+	frontMatter, err := validate(invalidatedFrontMatter)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	return frontMatter, nil
+}
+
+// TODO: Wrap those error messages.
+func validate(invalidatedFrontMatter invalidatedFrontmatter) (frontmatter, error) {
+	formatedFrontMatterVersion, err := formatter.ValidateAndFormatFrontMatterVersion(invalidatedFrontMatter.FrontMatterVersion)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedTitle, err := formatter.ValidateAndFormatTitle(invalidatedFrontMatter.Title)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedDrafted, err := formatter.ValidateAndFormatDrafted(invalidatedFrontMatter.Drafted)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedCreated, err := formatter.ValidateAndFormatCreated(invalidatedFrontMatter.Created)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedLastUpdated, err := formatter.ValidateAndFormatLastUpdated(invalidatedFrontMatter.LastUpdated)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedLastChecked, err := formatter.ValidateAndFormatLastChecked(invalidatedFrontMatter.LastChecked)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedTags, err := formatter.ValidateAndFormatTags(invalidatedFrontMatter.Tags)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedID, err := formatter.ValidateAndFormatID(invalidatedFrontMatter.ID)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	return frontmatter{
+		FrontMatterVersion: formatedFrontMatterVersion,
+		Title:              formatedTitle,
+		Drafted:            formatedDrafted,
+		Created:            formatedCreated,
+		LastUpdated:        formatedLastUpdated,
+		LastChecked:        formatedLastChecked,
+		Tags:               formatedTags,
+		ID:                 formatedID,
+	}, nil
+}
 
 // parseIndex do following:
 //   1. Finds first two 'IdentifyingTokenWithNewline' in 'post'.
@@ -108,10 +202,10 @@ func Parse(post []byte) (frontmatter, content []byte, err error) {
 //
 // TODO: Add test
 //
-func unmarshal(frontmatter []byte) (tomlData, error) {
-	var td tomlData
+func unmarshal(frontmatter []byte) (invalidatedFrontmatter, error) {
+	var td invalidatedFrontmatter
 	if err := toml.Unmarshal(frontmatter, &td); err != nil {
-		return tomlData{}, err
+		return invalidatedFrontmatter{}, err
 	}
 	return td, nil
 }

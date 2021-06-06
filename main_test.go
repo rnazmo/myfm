@@ -211,7 +211,7 @@ func Test_unmarshal(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    tomlData
+		want    invalidatedFrontmatter
 		wantErr bool
 	}{
 		{
@@ -227,7 +227,7 @@ tags = ["meta:tagme", "lang::en", "golang"]
 id = "AbCdEfGh"
 `),
 			},
-			want: tomlData{
+			want: invalidatedFrontmatter{
 				FrontMatterVersion: "0.0.4",
 				Title:              "Foo Bar Baz Foo Bar Baz",
 				Drafted:            "2021-01-02-03-45",
