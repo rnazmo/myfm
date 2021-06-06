@@ -10,6 +10,10 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
 - [ ] Implement `formatter` package
   - [ ] Implement functions
   - [ ] Add tests
+- [ ] Add tests for functions
+  - [ ] `NewFromPost`
+  - [ ] `NewFromInputs`
+  - [ ] `validate`
 - [ ] Add scripts
   - [ ] `/devel-tools/script/install-devel-tools.linux.x64.sh`
   - [ ] Add test cases

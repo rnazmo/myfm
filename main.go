@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/naoina/toml"
+	"github.com/rnazmo/myfm/formatter"
 )
 
 const (
@@ -23,6 +24,94 @@ type frontmatter struct {
 	LastChecked        string
 	Tags               []string
 	ID                 string
+}
+
+// TODO: Wrap those error messages.
+func NewFromPost(post []byte) (fm frontmatter, content []byte, err error) {
+	frontMatterBytes, content, err := Parse(post)
+	if err != nil {
+		return frontmatter{}, nil, err
+	}
+	invalidatedFrontMatter, err := unmarshal(frontMatterBytes)
+	if err != nil {
+		return frontmatter{}, nil, err
+	}
+	frontMatter, err := validate(invalidatedFrontMatter)
+	if err != nil {
+		return frontmatter{}, nil, err
+	}
+	return frontMatter, content, nil
+}
+
+func NewFromInputs(
+	frontMatterVersion string,
+	title string,
+	drafted string,
+	created string,
+	lastUpdated string,
+	lastChecked string,
+	tags []string,
+	id string,
+) (frontmatter, error) {
+	return validate(
+		invalidatedFrontmatter{
+			FrontMatterVersion: frontMatterVersion,
+			Title:              title,
+			Drafted:            drafted,
+			Created:            created,
+			LastUpdated:        lastUpdated,
+			LastChecked:        lastChecked,
+			Tags:               tags,
+			ID:                 id,
+		},
+	)
+}
+
+// TODO: Wrap those error messages.
+// TODO: Should I rename this function to 'newFromInvalidatedFrontmatter'?
+func validate(invalidatedFrontMatter invalidatedFrontmatter) (frontmatter, error) {
+	formatedFrontMatterVersion, err := formatter.ValidateAndFormatFrontMatterVersion(invalidatedFrontMatter.FrontMatterVersion)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedTitle, err := formatter.ValidateAndFormatTitle(invalidatedFrontMatter.Title)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedDrafted, err := formatter.ValidateAndFormatDrafted(invalidatedFrontMatter.Drafted)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedCreated, err := formatter.ValidateAndFormatCreated(invalidatedFrontMatter.Created)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedLastUpdated, err := formatter.ValidateAndFormatLastUpdated(invalidatedFrontMatter.LastUpdated)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedLastChecked, err := formatter.ValidateAndFormatLastChecked(invalidatedFrontMatter.LastChecked)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedTags, err := formatter.ValidateAndFormatTags(invalidatedFrontMatter.Tags)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	formatedID, err := formatter.ValidateAndFormatID(invalidatedFrontMatter.ID)
+	if err != nil {
+		return frontmatter{}, err
+	}
+	return frontmatter{
+		FrontMatterVersion: formatedFrontMatterVersion,
+		Title:              formatedTitle,
+		Drafted:            formatedDrafted,
+		Created:            formatedCreated,
+		LastUpdated:        formatedLastUpdated,
+		LastChecked:        formatedLastChecked,
+		Tags:               formatedTags,
+		ID:                 formatedID,
+	}, nil
 }
 
 // parseIndex do following:
