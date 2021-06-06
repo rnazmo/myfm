@@ -16,7 +16,7 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
   - [ ] `validate`
 - [ ] Add scripts
   - [ ] `/devel-tools/script/install-devel-tools.linux.x64.sh`
-  - [ ] Add test cases
+- [ ] Add test cases
 - [ ] Use Dependabot
 - [ ] Add functions
   - [ ] `New(post []byte) (fm FrontMatter, content []byte, err error)`
