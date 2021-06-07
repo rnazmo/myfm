@@ -92,7 +92,7 @@ piyo piyo piyo piyo piyo piyo piyo piyo.
 		},
 	},
 	{
-		name: "Fontmatter must be at the top of the post",
+		name: "Frontmatter must be at the top of the post",
 		args: args{
 			post: []byte(`some invalid text+++
 front_matter_version = "0.0.4"
