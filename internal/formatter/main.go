@@ -1,5 +1,7 @@
 package formatter
 
+import "sort"
+
 func ValidateAndFormatFrontMatterVersion(frontMatterVersion string) (string, error) {
 	// TODO:
 	if err := validateFrontMatterVersion(frontMatterVersion); err != nil {
@@ -122,8 +124,9 @@ func validateTags(tags []string) error {
 }
 
 func formatTags(validatedTags []string) []string { // NOTE: the arg must be validated.
-	// TODO:
-	return nil
+	sort.Strings(validatedTags)
+	// TODO: Add more formatting
+	return validatedTags
 }
 
 func ValidateAndFormatID(id string) (string, error) {
