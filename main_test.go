@@ -83,7 +83,7 @@ piyo piyo piyo piyo piyo piyo piyo piyo.
 		},
 	},
 	{
-		name: "Input is shorter than token",
+		name: "Input is shorter than token length",
 		args: args{
 			post: []byte("++"),
 		},
