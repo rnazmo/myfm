@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/naoina/toml"
-	"github.com/rnazmo/myfm/formatter"
+	"github.com/rnazmo/myfm/internal/formatter"
 )
 
 const (
