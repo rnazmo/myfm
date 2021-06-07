@@ -32,12 +32,7 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
 - [ ] Add `testdata/a.md`, `testdata/b.md`, ...
 - [ ] Add CLI. (under `/cli/myfm/`, using cobra, commands: extract, format, lint)
 - [ ] Write documents
-- [ ] Make the field names of `frontmatter` non-capitalizable.
-  - It prevents the field values from being changed from outside the package. Then the field values of `frontmatter` are always guaranteed to be validated.
-  - We access the field values via methods like `frontMatterVersion() (string)`, `SetFrontMatterVersion(frontMatterVersion string) error`.
-  - But.... We cannot unmarshal the `frontmatter` struct if the field names are not capitalized.
-  - **-> Use interface**
-    - Add `type Frontmatter interface` ?
+- Add `type Frontmatter interface` ?
 - [ ] Release `v0.1.0` (or `v0.0.4`? (is based on the `front_matter_version`))
 - [ ] Update the front matter template and bump the version of `front_matter_version` (to `v0.0.5`? or `v2.0.0`?)
 - [ ] (Add struct `type Frontmatter frontmatter`)?

@@ -13,9 +13,9 @@ const (
 	IdentifyingTokenWithNewline = IdentifyingToken + "\n"
 )
 
-type invalidatedFrontmatter frontmatter
-
-type frontmatter struct {
+// MEMO: Do not return this struct on exported (= capitalized) function.
+//       Return frontmatter instead.
+type invalidatedFrontmatter struct {
 	FrontMatterVersion string
 	Title              string
 	Drafted            string
@@ -24,6 +24,92 @@ type frontmatter struct {
 	LastChecked        string
 	Tags               []string
 	ID                 string
+}
+
+type frontmatter struct {
+	frontMatterVersion string
+	title              string
+	drafted            string
+	created            string
+	lastUpdated        string
+	lastChecked        string
+	tags               []string
+	id                 string
+}
+
+func (fm *frontmatter) FrontMatterVersion() string { return fm.frontMatterVersion }
+func (fm *frontmatter) Title() string              { return fm.title }
+func (fm *frontmatter) Drafted() string            { return fm.drafted }
+func (fm *frontmatter) Created() string            { return fm.created }
+func (fm *frontmatter) LastUpdated() string        { return fm.lastUpdated }
+func (fm *frontmatter) LastChecked() string        { return fm.lastChecked }
+func (fm *frontmatter) Tags() []string             { return fm.tags }
+func (fm *frontmatter) ID() string                 { return fm.id }
+
+// TODO: Add tests to these methods
+func (fm *frontmatter) SetFrontMatterVersion(frontMatterVersion string) error {
+	formattedFrontMatterVersion, err := formatter.ValidateAndFormatFrontMatterVersion(frontMatterVersion)
+	if err != nil {
+		return err // TODO: wrap the error
+	}
+	fm.frontMatterVersion = formattedFrontMatterVersion
+	return nil
+}
+func (fm *frontmatter) SetTitle(title string) error {
+	formattedTitle, err := formatter.ValidateAndFormatTitle(title)
+	if err != nil {
+		return err // TODO: wrap the error
+	}
+	fm.title = formattedTitle
+	return nil
+}
+func (fm *frontmatter) SetDrafted(drafted string) error {
+	formattedDrafted, err := formatter.ValidateAndFormatTitle(drafted)
+	if err != nil {
+		return err // TODO: wrap the error
+	}
+	fm.title = formattedDrafted
+	return nil
+}
+func (fm *frontmatter) SetCreated(created string) error {
+	formattedCreated, err := formatter.ValidateAndFormatTitle(created)
+	if err != nil {
+		return err // TODO: wrap the error
+	}
+	fm.title = formattedCreated
+	return nil
+}
+func (fm *frontmatter) SetLastUpdated(lastUpdated string) error {
+	formattedLastUpdated, err := formatter.ValidateAndFormatTitle(lastUpdated)
+	if err != nil {
+		return err // TODO: wrap the error
+	}
+	fm.title = formattedLastUpdated
+	return nil
+}
+func (fm *frontmatter) SetLastChecked(lastChecked string) error {
+	formattedLastChecked, err := formatter.ValidateAndFormatTitle(lastChecked)
+	if err != nil {
+		return err // TODO: wrap the error
+	}
+	fm.title = formattedLastChecked
+	return nil
+}
+func (fm *frontmatter) SetTags(tags string) error {
+	formattedTags, err := formatter.ValidateAndFormatTitle(tags)
+	if err != nil {
+		return err // TODO: wrap the error
+	}
+	fm.title = formattedTags
+	return nil
+}
+func (fm *frontmatter) SetID(id string) error {
+	formattedID, err := formatter.ValidateAndFormatTitle(id)
+	if err != nil {
+		return err // TODO: wrap the error
+	}
+	fm.title = formattedID
+	return nil
 }
 
 // TODO: Wrap those error messages.
@@ -103,14 +189,14 @@ func validate(invalidatedFrontMatter invalidatedFrontmatter) (frontmatter, error
 		return frontmatter{}, err
 	}
 	return frontmatter{
-		FrontMatterVersion: formatedFrontMatterVersion,
-		Title:              formatedTitle,
-		Drafted:            formatedDrafted,
-		Created:            formatedCreated,
-		LastUpdated:        formatedLastUpdated,
-		LastChecked:        formatedLastChecked,
-		Tags:               formatedTags,
-		ID:                 formatedID,
+		frontMatterVersion: formatedFrontMatterVersion,
+		title:              formatedTitle,
+		drafted:            formatedDrafted,
+		created:            formatedCreated,
+		lastUpdated:        formatedLastUpdated,
+		lastChecked:        formatedLastChecked,
+		tags:               formatedTags,
+		id:                 formatedID,
 	}, nil
 }
 
