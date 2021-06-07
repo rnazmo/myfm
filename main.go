@@ -146,8 +146,10 @@ func parseIndex(post []byte) (firstIdx, secondIdx int, err error) {
 		return 0, 0, fmt.Errorf("parseIndex(): invalid input. shorter than token")
 	}
 
+	// The first token is always at the top of the 'post'
 	const first = n // it's always 4
 
+	// Find the second token
 	i := bytes.Index(
 		post[first:], // NOTE: Don't forget that 'i' is the index of 'post[first:]', no of 'post'.
 		[]byte(IdentifyingTokenWithNewline),
