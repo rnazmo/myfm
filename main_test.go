@@ -159,11 +159,79 @@ piyo piyo piyo piyo piyo?
 			wantErr: true,
 		},
 	},
+	{
+		name: "Line break of the token must be LF not CTLF",
+		args: args{
+			post: []byte(`+++\r\nfront_matter_version = "0.0.4"`),
+		},
+		wants: wants{
+			wantErr: true,
+		},
+	},
+	{
+		name: "Line break of the token must be LF not CR",
+		args: args{
+			post: []byte(`+++\rfront_matter_version = "0.0.4"`),
+		},
+		wants: wants{
+			wantErr: true,
+		},
+	},
+	{
+		name: "Tokens also exist in the content",
+		args: args{
+			// Ref (About a backquote in backquotes):
+			//   https://stackoverflow.com/a/4424560
+			post: []byte(`+++
+front_matter_version = "0.0.4"
+title = "Foo Bar Baz Foo Bar Baz"
+drafted = "2021-01-02-03-45"
+created = "2021-06-04-15-33"
+last_updated = ""
+last_checked = ""
+tags = ["meta:tagme", "lang::en", "golang"]
+id = "AbCdEfGh"
++++
 
-	// {
-	// 	name: "Tokens exists in contents",
-	// 	// TODO:
-	// },
+## Foo
+
+piyo piyo piyo piyo piyo?
+
+## Bar
+
+` + "```md" + `
++++
+front_matter_version = "XXXXXXXXXX"
++++
+` + "```\n"),
+		},
+		wants: wants{
+			firstIdx:  4,
+			secondIdx: 227,
+			frontmatter: []byte(`front_matter_version = "0.0.4"
+title = "Foo Bar Baz Foo Bar Baz"
+drafted = "2021-01-02-03-45"
+created = "2021-06-04-15-33"
+last_updated = ""
+last_checked = ""
+tags = ["meta:tagme", "lang::en", "golang"]
+id = "AbCdEfGh"
+`),
+			content: []byte(`
+## Foo
+
+piyo piyo piyo piyo piyo?
+
+## Bar
+
+` + "```md" + `
++++
+front_matter_version = "XXXXXXXXXX"
++++
+` + "```\n"),
+			wantErr: false,
+		},
+	},
 
 	// TODO: Add testcases.
 }
