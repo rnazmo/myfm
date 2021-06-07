@@ -26,7 +26,6 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
 - [ ] Add methods to struct `frontmatter`
   - [ ] `func (fm frontmatter) Marshal() (???, error)`: Convert the struct to toml
   - [ ] `func (fm frontmatter) MarshalToJson() (???, error)`: Convert the struct to json
-- [ ] (Add struct `FrontMatter`)?
 - [ ] Add GitHub Actions workflows
   - [ ] integ-test
 - [ ] Add `_example/*`
@@ -37,3 +36,27 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
   - It prevents the field values from being changed from outside the package. Then the field values of `frontmatter` are always guaranteed to be validated.
   - We access the field values via methods like `frontMatterVersion() (string)`, `SetFrontMatterVersion(frontMatterVersion string) error`.
   - But.... We cannot unmarshal the `frontmatter` struct if the field names are not capitalized.
+  - **-> Use interface**
+    - Add `type Frontmatter interface` ?
+- [ ] Release `v0.1.0` (or `v0.0.4`? (is based on the `front_matter_version`))
+- [ ] Update the front matter template and bump the version of `front_matter_version` (to `v0.0.5`? or `v2.0.0`?)
+- [ ] (Add struct `type Frontmatter frontmatter`)?
+- [ ] Add struct `frontmatters []frontmatter`?
+  - [ ] Add methods to the struct `frontmatters`
+    - [ ] `func (fms frontmatters) Titles() []string`
+    - [ ] `func (fms frontmatters) Drafteds() []string`
+    - [ ] `func (fms frontmatters) Createds() []string`
+    - [ ] `func (fms frontmatters) LastUpdateds() []string`
+    - [ ] `func (fms frontmatters) LastCheckeds() []string`
+    - [ ] `func (fms frontmatters) Tagss() [][]string`
+    - [ ] `func (fms frontmatters) IDs() []string`
+- [ ] Add badges to `README.md`
+  - [ ] Ref: Badges example:
+    - https://github.com/go-playground/validator
+    - https://github.com/uber-go/zap
+  - [ ] go report: https://goreportcard.com/
+  - [ ] coverage (codecov?)
+  - [ ] pkg.go.dev: https://pkg.go.dev/badge/
+- [ ] logging?
+  - Do we really need logging?
+  - No
