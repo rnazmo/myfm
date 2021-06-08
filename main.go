@@ -279,6 +279,7 @@ func Parse(post []byte) (frontmatter, content []byte, err error) {
 //
 // Ref:
 //   https://pkg.go.dev/github.com/pelletier/go-toml/v2#Unmarshal
+//   https://github.com/pelletier/go-toml/tree/618f0181ac76015c3efdaf8b8ab5a468293f6e82#automatic-field-name-guessing
 //
 // TODO: Add test cases
 //
