@@ -283,7 +283,7 @@ func Test_unmarshal(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "todo: nameme",
+			name: "Basic",
 			args: args{
 				frontmatter: []byte(`front_matter_version = "0.0.4"
 title = "Foo Bar Baz Foo Bar Baz"
