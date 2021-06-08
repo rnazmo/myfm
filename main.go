@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/naoina/toml"
+	"github.com/pelletier/go-toml/v2"
 	"github.com/rnazmo/myfm/internal/formatter"
 )
 
@@ -16,14 +16,14 @@ const (
 // MEMO: Do not return this struct on exported (= capitalized) function.
 //       Return frontmatter instead.
 type invalidatedFrontmatter struct {
-	FrontMatterVersion string
-	Title              string
-	Drafted            string
-	Created            string
-	LastUpdated        string
-	LastChecked        string
-	Tags               []string
-	ID                 string
+	FrontMatterVersion string   `toml:"front_matter_version"`
+	Title              string   `toml:"title"`
+	Drafted            string   `toml:"drafted"`
+	Created            string   `toml:"created"`
+	LastUpdated        string   `toml:"last_updated"`
+	LastChecked        string   `toml:"last_checked"`
+	Tags               []string `toml:"tags"`
+	ID                 string   `toml:"id"`
 }
 
 type frontmatter struct {
@@ -278,10 +278,7 @@ func Parse(post []byte) (frontmatter, content []byte, err error) {
 // unmarshal converts a front matter from toml to struct.
 //
 // Ref:
-//   https://github.com/naoina/toml
-//   https://pkg.go.dev/github.com/naoina/toml?utm_source=godoc#example-package-TextUnmarshalerError
-//
-// TODO: Use https://github.com/pelletier/go-toml instead.
+//   https://pkg.go.dev/github.com/pelletier/go-toml/v2#Unmarshal
 //
 // TODO: Add test
 //
