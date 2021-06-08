@@ -50,6 +50,7 @@ myfm (My FrontMatter) is a Golang package to manage front matters for my own use
     - https://github.com/uber-go/zap
   - [ ] go report: https://goreportcard.com/
   - [ ] coverage (codecov?)
+    - https://about.codecov.io/blog/getting-started-with-code-coverage-for-golang/
   - [ ] pkg.go.dev: https://pkg.go.dev/badge/
 - [ ] logging?
   - Do we really need logging?
