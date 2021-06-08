@@ -280,7 +280,7 @@ func Parse(post []byte) (frontmatter, content []byte, err error) {
 // Ref:
 //   https://pkg.go.dev/github.com/pelletier/go-toml/v2#Unmarshal
 //
-// TODO: Add test
+// TODO: Add test cases
 //
 func unmarshal(frontmatter []byte) (invalidatedFrontmatter, error) {
 	var td invalidatedFrontmatter
