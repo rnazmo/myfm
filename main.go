@@ -112,6 +112,34 @@ func (fm *frontmatter) SetID(id string) error {
 	return nil
 }
 
+// Marshal converts the struct to toml []byte.
+//
+// Ref:
+//   https://pkg.go.dev/github.com/pelletier/go-toml/v2#Marshal
+//
+// MEMO:
+//   Note that the marshaled strings are surrounded by SINGLE quote, not DOUBLE quote.
+//   Ref:
+//     About the behavior of 'Marshal()':
+//       https://github.com/pelletier/go-toml/blob/618f0181ac76015c3efdaf8b8ab5a468293f6e82/README.md#keys-and-strings-are-single-quoted
+//     About the difference between single quoted string and double quoted string in toml:
+//       https://github.com/toml-lang/toml.io/blob/1290a398d4e6774737d535180dd1f9542dc9e575/specs/en/v1.0.0.md#string
+func (fm *frontmatter) Marshal() ([]byte, error) {
+	//MEMO: Why convert to invalidatedFrontmatter?
+	//   -> The field names of the struct of the functions's
+	//   argument must be capitalized.
+	return toml.Marshal(&invalidatedFrontmatter{
+		FrontMatterVersion: fm.frontMatterVersion,
+		Title:              fm.title,
+		Drafted:            fm.drafted,
+		Created:            fm.created,
+		LastUpdated:        fm.lastUpdated,
+		LastChecked:        fm.lastChecked,
+		Tags:               fm.tags,
+		ID:                 fm.id,
+	})
+}
+
 // TODO: Wrap those error messages.
 func NewFromPost(post []byte) (fm frontmatter, content []byte, err error) {
 	frontMatterBytes, content, err := Parse(post)

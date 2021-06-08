@@ -7,6 +7,8 @@
 #   https://github.com/golangci/golangci-lint/blob/3c795d8637855c813c7c22fb36a3521c726bcd87/.golangci.yml
 
 linters-settings:
+  funlen:
+    lines: 100
   lll:
     line-length: 140
   maligned:
