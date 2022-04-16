@@ -5,6 +5,16 @@
 
 myfm (My FrontMatter) is a Golang package to manage front matters for my own use.
 
+## Documentation for users
+
+TODO:
+
+## Documentation for developers
+
+### How to setup your development environment
+
+TODO:
+
 ## TODO
 
 - [ ] Implement `formatter` package
