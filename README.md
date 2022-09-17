@@ -65,3 +65,4 @@ TODO:
 - [ ] logging?
   - Do we really need logging?
   - No
+- [ ] `versions` ディレクトリを作り、各バージョンについて `template.md` とその仕様をまとめた `specification.txt` を作る
