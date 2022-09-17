@@ -17,6 +17,41 @@ TODO:
 
 ## TODO
 
+### Priority: ☆☆☆
+
+- どの version までをサポートするか決める
+  - 全部をサポートし続けるのは無理。最新3つくらい？
+    - バージョン移行用の変換スクリプトも作る？
+  - バージョンごとに処理が違う。バージョンによって処理を分岐させるので、バージョンごとにディレクトリを分けてコード書く必要がありそう
+  - 面倒すぎる。かなり複雑になる。まともに管理できないし、したくない
+  - やはり、バージョンごとに branch を切った方が良さそう
+    - つまり、原則として最新1つのみサポート。
+      - その代わり、バージョン移行用の変換スクリプトを手厚く？
+- Implement a skeleton
+  - 処理の大まかな流れ：
+    - プロジェクトのルートディレクトリ(？)にある `.fmconfig.toml` を読み込む
+      - `.fmconfig.toml` に書かれていること：
+      - `path-to-allowed-taxonomies: "foo"`: `allowed-taxonomies.toml` へのパス
+      - `path-to-targets: ["foo"]`: 対象となる Markdown ファイルたちのリスト。ディレクトリ名(または直接ファイル名)で指定する。
+    - ディレクトリパスを巡回して、ファイルリストを取得
+    - 各ファイルの front matter を抽出
+    - Golang の構造体へと変換
+    - ソートする、一覧表示する、など様々
+- `v0.1.0` の仕様を固める
+  - `template.md`(?) とその仕様をまとめた `specification.md` を作る
+- Update TODO
+- Upgrade Golang version from 1.16 to 1.19
+
+### Priority: ☆☆
+
+### Priority: ☆
+
+- GUI(ブラウザ)版作る？(TypeScript+React.jsあたりで書いて、GitHub Pages上で動くやつ)
+  - TypeScript, React.js の勉強になってよさそう
+  - front matter の仕様が固まり、CLI が完成してからなので、かなり後になりそう。
+
+### Uncateg
+
 - [ ] Implement `formatter` package
   - [ ] Implement functions
   - [ ] Add tests
@@ -65,4 +100,3 @@ TODO:
 - [ ] logging?
   - Do we really need logging?
   - No
-- [ ] `versions` ディレクトリを作り、各バージョンについて `template.md` とその仕様をまとめた `specification.txt` を作る
